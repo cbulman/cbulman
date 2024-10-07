@@ -1,4 +1,4 @@
-Just a guy who picked up Linux as a hobby because life wasn't hard enough already.
+# We Will Think of Something.
 
 <!---
 cbulman/cbulman is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.

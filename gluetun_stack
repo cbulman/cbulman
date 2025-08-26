@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  gluetun:
+    image: qmcgaw/gluetun
+    cap_add:
+      - NET_ADMIN
+    devices:
+ #     - /dev/net/tun:/dev/net/tun
+    environment:
+      - VPN_SERVICE_PROVIDER=nordvpn
+      - VPN_TYPE=wireguard
+ #     - OPENVPN_USER=abc
+ #     - OPENVPN_PASSWORD=abc
+ #     - SERVER_COUNTRIES=Netherlands
+
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - WEBUI_PORT=9090
+      - TORRENTING_PORT=6881
+    volumes:
+      - /path/to/qbittorrent/appdata:/config
+      - /path/to/downloads:/downloads #optional
+    ports:
+      - 9090:9090
+      - 6881:6881
+      - 6881:6881/udp
+    restart: unless-stopped 

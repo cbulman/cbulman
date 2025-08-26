@@ -1,33 +1,35 @@
 # To include: Audiobookshelf, File_Browser, Kavita, Plex, Tautulli
 # Future expansion: Heimdall, Bazarr, Smokeping, Kometa
+# Notes: PUID/PGID/TZ > move to .env file?
+# Plex: space in directory name?
 
 ---
 services:
-  plex:
+  plex: 
     image: lscr.io/linuxserver/plex:latest
     container_name: plex
     network_mode: host
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
-      - VERSION=docker
-      - PLEX_CLAIM= #optional
+      - TZ=America/Chicago
     volumes:
-      - /path/to/plex/library:/config
-      - /path/to/tvseries:/tv
-      - /path/to/movies:/movies
+      - /mnt/hd1/Plex/DockerConfigs/plex:/config
+      - /mnt/hd1/Plex/TV Shows:/tv
+      - /mnt/hd1/Plex/Movies:/movies
+      - /mnt/hd1/Plex/Web:/web
+      - /mnt/hd1/Plex/Prerolls:/Prerolls
     restart: unless-stopped
 
-  tautulli:
+  tautulli: # OK except for TZ?
     image: lscr.io/linuxserver/tautulli:latest
     container_name: tautulli
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
+      - TZ=America/Chicago
     volumes:
-      - /path/to/tautulli/config:/config
+      - /mnt/hd1/Plex/DockerConfigs/tautulli:/config
     ports:
       - 8181:8181
     restart: unless-stopped
@@ -38,7 +40,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
+      - TZ=America/Chicago
     volumes:
       - /path/to/kavita/config:/config
       - /path/to/data:/data #optional

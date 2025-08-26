@@ -6,7 +6,8 @@
 # Audiobookshelf: OK
 # FileBrowser: Uncertain about PUID/PGID settings
 
----
+version: "3"
+
 services:
   plex: 
     image: lscr.io/linuxserver/plex:latest

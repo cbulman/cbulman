@@ -1,10 +1,5 @@
 # To include: Audiobookshelf, File_Browser, Kavita, Plex, Tautulli
 # Future expansion: Heimdall, Bazarr, Smokeping, Kometa
-# Notes: PUID/PGID/TZ > move to .env file?
-# Tautulli: OK
-# Kavita: OK
-# Audiobookshelf: OK
-# FileBrowser: Uncertain about PUID/PGID settings
 
 version: "3"
 
@@ -14,9 +9,9 @@ services:
     container_name: plex
     network_mode: host
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Chicago
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
     volumes:
       - /mnt/hd1/Plex/DockerConfigs/plex:/config
       - "/mnt/hd1/Plex/TV Shows:/tv"
@@ -29,9 +24,9 @@ services:
     image: lscr.io/linuxserver/tautulli:latest
     container_name: tautulli
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Chicago
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
     volumes:
       - /mnt/hd1/Plex/DockerConfigs/tautulli:/config
     ports:
@@ -42,9 +37,9 @@ services:
     image: lscr.io/linuxserver/kavita:latest
     container_name: kavita
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Chicago
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
     volumes:
       - /mnt/hd1/Plex/DockerConfigs/kavita:/config
       - /mnt/hd1/Plex/Books:/data
@@ -61,12 +56,12 @@ services:
       - /mnt/hd1/Plex/DockerConfigs/audiobookshelf_config:/config
       - /mnt/hd1/Plex/DockerConfigs/audiobookshelf_metadata:/metadata
     environment:
-      - TZ=America/Chicago
+      - TZ=${TZ}
     restart: unless-stopped
 
   filebrowser:
     image: hurlenko/filebrowser
-    user: "${UID}:${GID}"
+    user: "${PUID}:${PGID}"
     ports:
       - 443:8080
     volumes:
